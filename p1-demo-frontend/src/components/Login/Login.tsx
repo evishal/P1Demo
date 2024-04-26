@@ -1,8 +1,20 @@
+import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Login: React.FC = () => {
 
+    //we need a useNavigate hook to allow us to navigate between components... no more manual URL changes!
+    const navigate = useNavigate()
 
+    //this function will (EVENTUALLY) gather username and password, and send a POST to our java server
+    const login = async () => {
+
+        //TODO: make this send an actual POST with the user inputs
+
+        //use our useNavigate hook to switch views to the Catch Pokemon Component
+        navigate("/catch")
+
+    }
 
 
     return(
@@ -19,7 +31,7 @@ export const Login: React.FC = () => {
                     <input type="password" placeholder="password" name="password"/>
                 </div>
 
-                <button className="login-button">Login</button>
+                <button className="login-button" onClick={login}>Login</button>
                 <button className="login-button">Create Account</button>
 
             </div>
