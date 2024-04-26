@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login/Login';
 import { Catch } from './components/Catch/Catch';
+import { Register } from './components/Login/Register';
 
 //If we want a component to render as soon as the app starts...
 //...then you should leave the path as ""
@@ -14,6 +15,7 @@ function App() {
           <Routes>
               <Route path="" element={<Login/>}/>
               <Route path="/catch" element={<Catch/>}/>
+              <Route path="/register" element={<Register/>}/>
           </Routes>
       </BrowserRouter>
     </div>

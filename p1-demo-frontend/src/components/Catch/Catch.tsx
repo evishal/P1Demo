@@ -2,6 +2,7 @@ import { useState } from "react"
 import { PokemonInterface } from "../../interfaces/PokemonInterface"
 import "./Catch.css"
 import axios from "axios"
+import { Pokemon } from "../Pokemon/Pokemon"
 
 export const Catch: React.FC = () => {
 
@@ -25,6 +26,15 @@ export const Catch: React.FC = () => {
         //sending our request to pokeAPI using the userInput as the pokemon id to search for
         const response = await axios.get("https://pokeapi.co/api/v2/pokemon/" + userInput)
 
+        console.log(response.data) //response.data will give us the incoming data from the request
+
+        //let's set our pokemon state with the incoming data
+        setPokemon((pokemon) => ({...pokemon, name:response.data.name})) //only changing the name
+        setPokemon((pokemon) => ({...pokemon, image:response.data.sprites.front_default})) //only changing the image
+
+        //what's that?^^ when we have state as entire objects, it's tricky to change just one value...
+        //we can use the ...spread operator to say "keep the entire state object as is, but change this one thing"
+
     }
 
     return(
@@ -32,7 +42,12 @@ export const Catch: React.FC = () => {
             <div className="home-container">
                 <h3>Search For a Pokemon!</h3>
                 <input type="number" placeholder="Enter Pokemon ID" onChange={gatherInput}/>
-                <button className="poke-button">Find Pokemon</button>
+                <button className="poke-button" onClick={getPokemon}>Find Pokemon</button>
+
+
+                <div className="poke-container">
+                    <Pokemon {...pokemon}></Pokemon>
+                </div>
 
             </div>
         </div>

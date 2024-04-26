@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
                 </div>
 
                 <button className="login-button" onClick={login}>Login</button>
-                <button className="login-button">Create Account</button>
+                <button className="login-button" onClick={() => navigate("/register")}>Create Account</button>
 
             </div>
         </div>
