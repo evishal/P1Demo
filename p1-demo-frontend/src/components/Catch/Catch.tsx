@@ -42,7 +42,7 @@ export const Catch: React.FC = () => {
     const catchPokemon = async () => {
 
         //hardcode userId 1 for the pokemon's user
-        const response = await axios.post("http://localhost:8080/pokemon/1")
+        const response = await axios.post("http://localhost:8080/pokemon/1", pokemon)
 
         alert(response.data) //{username} caught {pokemonname}!
 
@@ -57,7 +57,7 @@ export const Catch: React.FC = () => {
 
 
                 <div className="poke-container">
-                    {pokemon.name ? <button className="poke-button">catch</button> : ''}
+                    {pokemon.name ? <button className="poke-button" onClick={catchPokemon}>catch</button> : ''}
                     <Pokemon {...pokemon}></Pokemon>
                 </div>
 
