@@ -1,7 +1,7 @@
 package com.revature.models.DTOs;
 
 //This DTO will take in a Pokemon with just name, image, and an int for userId
-//saves us the hassle of trying to  send an entire user the user from the front end
+//saves us the hassle of trying to send an entire user from the front end
 public class IncomingPokeDTO {
 
     private String name;
