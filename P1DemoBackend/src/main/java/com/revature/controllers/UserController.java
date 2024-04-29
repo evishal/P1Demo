@@ -4,10 +4,7 @@ import com.revature.models.DTOs.IncomingUserDTO;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -22,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PostMapping
     public ResponseEntity<String> registerUser(@RequestBody IncomingUserDTO userDTO){
 
         //try to register the user

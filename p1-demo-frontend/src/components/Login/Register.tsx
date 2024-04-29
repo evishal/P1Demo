@@ -34,9 +34,9 @@ export const Register: React.FC = () => {
     const register = async () => {
 
         //TODO: We still need to implement the backend... this request goes nowhere
-        const response = await axios.post("http://localhost:8080/SOME_ENDPOINT", user)
+        const response = await axios.post("http://localhost:8080/users", user)
 
-        alert("This would have sent a post to the backend to create a user")
+        alert(response.data) //"{user} was created!"
 
         //after registration, send the user back to login page
         navigate("/")

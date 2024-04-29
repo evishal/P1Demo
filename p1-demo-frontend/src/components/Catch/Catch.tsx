@@ -3,6 +3,7 @@ import { PokemonInterface } from "../../interfaces/PokemonInterface"
 import "./Catch.css"
 import axios from "axios"
 import { Pokemon } from "../Pokemon/Pokemon"
+import { isButtonElement } from "react-router-dom/dist/dom"
 
 export const Catch: React.FC = () => {
 
@@ -37,6 +38,16 @@ export const Catch: React.FC = () => {
 
     }
 
+    //this function will send the existing pokemon to the Database
+    const catchPokemon = async () => {
+
+        //hardcode userId 1 for the pokemon's user
+        const response = await axios.post("http://localhost:8080/pokemon/1")
+
+        alert(response.data) //{username} caught {pokemonname}!
+
+    }
+
     return(
         <div className="home-page">
             <div className="home-container">
@@ -46,6 +57,7 @@ export const Catch: React.FC = () => {
 
 
                 <div className="poke-container">
+                    {pokemon.name ? <button className="poke-button">catch</button> : ''}
                     <Pokemon {...pokemon}></Pokemon>
                 </div>
 
