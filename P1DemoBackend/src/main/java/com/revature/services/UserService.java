@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.DAOs.UserDAO;
+import com.revature.models.DTOs.IncomingUserDTO;
 import com.revature.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,36 @@ public class UserService {
     }
 
     //register user
-    public User registerUser(){
-        return null;
+    public User registerUser(IncomingUserDTO userDTO) throws IllegalArgumentException{
+
+        //Check the username and password are not empty/null
+        if(userDTO.getUsername().isBlank() || userDTO.getUsername() == null){
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
+
+        if(userDTO.getPassword().isBlank() || userDTO.getPassword() == null){
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
+
+        //also check that the username isn't vulgar
+        if(userDTO.getUsername().equals("JavaScript")){
+            throw new IllegalArgumentException("Username cannot be JavaScript");
+        }
+
+        //we could definitely check if the DTO is null too,
+        //but we're going to assume we've written good code
+        if(userDTO == null){
+            throw new IllegalArgumentException("This probably won't get thrown if we've written good code");
+        }
+
+        //TODO: We could have made an exception handling service to clean all this up, which is typical
+
+        //if all checks pass, we can create a new User based off the DTO and send it to the DAO
+        User newUser = new User(userDTO.getUsername(), userDTO.getPassword());
+
+        //save the user to the database and return that user at the same time
+        return userDAO.save(newUser);
+
     }
 
 }
