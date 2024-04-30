@@ -1,10 +1,15 @@
 package com.revature.controllers;
 
 import com.revature.models.DTOs.IncomingUserDTO;
+import com.revature.models.DTOs.OutgoingUserDTO;
+import com.revature.models.User;
 import com.revature.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -32,6 +37,32 @@ public class UserController {
             //If something goes wrong, send back a 400 BAD REQUEST, plus the error message
         }
         //TODO: We'll have checks for DB issues here as well
+
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody IncomingUserDTO userDTO, HttpSession session){
+
+        //Get the User object from the service (which talks to the DB)
+        Optional<User> optionalUser = userService.loginUser(userDTO);
+
+        //If login fails (which will return an empty optional), tell the user they failed
+        if(optionalUser.isEmpty()){
+            return ResponseEntity.status(401).body("Login Failed!");
+        }
+
+        //If login succeeds store the user info in our session
+        User u = optionalUser.get();
+
+        //Storing the user info in our session
+        session.setAttribute("userId", u.getUserId());
+        session.setAttribute("username", u.getUsername()); //probably won't use this
+
+        //Hypothetical role save to session
+        //session.setAttribute("role", u.getRole());
+
+        //Finally, send back a 200 (OK) as well as a OutgoingUserDTO
+        return ResponseEntity.ok(new OutgoingUserDTO(u.getUserId(), u.getUsername()));
 
     }
 

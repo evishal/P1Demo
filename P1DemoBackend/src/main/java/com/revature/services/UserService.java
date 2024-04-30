@@ -6,6 +6,8 @@ import com.revature.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 //Service Classes are used for data processing between controllers and DAOs
 //anything we need to do between HTTP and the Database is done here
     //Error handling
@@ -54,6 +56,16 @@ public class UserService {
 
         //save the user to the database and return that user at the same time
         return userDAO.save(newUser);
+
+    }
+
+    //This service will facilitate login - get a user from the DAO (or null)
+    public Optional<User> loginUser(IncomingUserDTO userDTO) throws IllegalArgumentException {
+
+        //TODO: validity checks
+
+        //if all checks pass, return a User OR null, and send it to the controller
+        return userDAO.findByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword());
 
     }
 

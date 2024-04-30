@@ -21,7 +21,7 @@ public class PokeController {
 
     //post mapping for inserting new pokemon
     @PostMapping("/{userId}")
-    public ResponseEntity<String> addPokemon(@RequestBody IncomingPokeDTO pokeDTO, @PathVariable int userId){
+    public ResponseEntity<String> addPokemon(@RequestBody IncomingPokeDTO pokeDTO, @PathVariable int){
 
         //TODO: once login is done, just send userId with the pokemon from the frontEnd
 
