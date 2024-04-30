@@ -34,7 +34,10 @@ export const Login: React.FC = () => {
         //TODO: We could (should) validate user input here as well as backend 
 
         //Send a POST request to the backend for login
-        const response = await axios.post("http://localhost:8080/users/login", user)
+        //NOTE: with credentials is what lets us save/send user session info
+        const response = await axios.post("http://localhost:8080/users/login", 
+        user,
+        {withCredentials:true})
         .then((response) => {
 
             //if the login was successful, log the user in and greet them
