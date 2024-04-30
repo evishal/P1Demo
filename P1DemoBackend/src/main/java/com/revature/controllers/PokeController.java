@@ -3,6 +3,7 @@ package com.revature.controllers;
 import com.revature.models.DTOs.IncomingPokeDTO;
 import com.revature.models.Pokemon;
 import com.revature.services.PokemonService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +21,17 @@ public class PokeController {
     }
 
     //post mapping for inserting new pokemon
-    @PostMapping("/{userId}")
-    public ResponseEntity<String> addPokemon(@RequestBody IncomingPokeDTO pokeDTO, @PathVariable int){
+    @PostMapping()
+    public ResponseEntity<String> addPokemon(@RequestBody IncomingPokeDTO pokeDTO, HttpSession session){
 
-        //TODO: once login is done, just send userId with the pokemon from the frontEnd
+        //If the user is not logged in (if the userId is null), send back a 401
+        if(session.getAttribute("userId") == null){
+            return ResponseEntity.status(401).body("You must be logged in to catch Pokemon!");
+        }
 
-        //attach the userId to the DTO
-        pokeDTO.setUserId(userId);
+        //Now that we have user info saved (in our HTTP Session), we can attach the stored user Id to the pokeDTO
+        pokeDTO.setUserId((int) session.getAttribute("userId"));
+        //why do we need to cast to an int? getAttribute returns an Object
 
         //TODO: try/catch once we decide to do some error handling
         Pokemon p = pokemonService.addPokemon(pokeDTO);

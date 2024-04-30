@@ -1,18 +1,50 @@
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
+import { UserInterface } from "../../interfaces/UserInterface"
+import { useState } from "react"
+import axios from "axios"
 
 export const Login: React.FC = () => {
+
+    //defining a state object for our user data
+    const[user, setUser] = useState<UserInterface>({
+        username:"",
+        password:""
+    })
 
     //we need a useNavigate hook to allow us to navigate between components... no more manual URL changes!
     const navigate = useNavigate()
 
+    //function to store input box values
+    const storeValues = (input:any) => {
+ 
+        //if the input that has changed is the "username" input, change the value of username in the user state object
+ 
+        if(input.target.name === "username"){
+            setUser((user) => ({...user, username:input.target.value}))
+        } else {
+            setUser((user) => ({...user, password:input.target.value}))
+        }
+ 
+    }
+
     //this function will (EVENTUALLY) gather username and password, and send a POST to our java server
     const login = async () => {
 
-        //TODO: make this send an actual POST with the user inputs
+        //TODO: We could (should) validate user input here as well as backend 
 
-        //use our useNavigate hook to switch views to the Catch Pokemon Component
-        navigate("/catch")
+        //Send a POST request to the backend for login
+        const response = await axios.post("http://localhost:8080/users/login", user)
+        .then((response) => {
+
+            //if the login was successful, log the user in and greet them
+            alert("Welcome, " + response.data.username)
+
+            //use our useNavigate hook to switch views to the Catch Pokemon Component
+            navigate("/catch")
+
+        })
+        .catch((error) => {alert("Login Failed!")}) //If login fails, tell the user that
 
     }
 
@@ -24,11 +56,11 @@ export const Login: React.FC = () => {
                 <h3>Sign in to Catch and View Pokemon!</h3>
 
                 <div className="input-container">
-                    <input type="text" placeholder="username" name="username"/>
+                    <input type="text" placeholder="username" name="username" onChange={storeValues}/>
                 </div>
 
                 <div className="input-container">
-                    <input type="password" placeholder="password" name="password"/>
+                    <input type="password" placeholder="password" name="password" onChange={storeValues}/>
                 </div>
 
                 <button className="login-button" onClick={login}>Login</button>
