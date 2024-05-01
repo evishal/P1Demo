@@ -38,7 +38,7 @@ export const Collection: React.FC = () => {
             {pokemon.map((poke, index) => 
                 <div>
                     <Pokemon {...poke}></Pokemon>
-                    <button>hi</button>
+                    <button className="poke-button">Delete</button>
                 </div>
            )}
 
