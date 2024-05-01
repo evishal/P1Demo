@@ -30,6 +30,20 @@ export const Collection: React.FC = () => {
 
     }
 
+    //Delete pokemon by id
+    const deletePokemon = async(pokeId:number|undefined) => {
+
+        //TODO: throw some error if pokeId is typeof undefined
+
+        const response = await axios.delete("http://localhost:8080/pokemon/" + pokeId, {withCredentials:true})
+        .then((response) => alert(response.data))
+        .then(() => getAllPokemon())
+        .catch(
+            //TODO: we could have some catches here for the errors that can pop up
+        )
+
+    }
+
     return(
         <div className="collection-container">
 
@@ -38,7 +52,7 @@ export const Collection: React.FC = () => {
             {pokemon.map((poke, index) => 
                 <div>
                     <Pokemon {...poke}></Pokemon>
-                    <button className="poke-button">Delete</button>
+                    <button className="poke-button" onClick={() => deletePokemon(poke.pokeId)}>Delete</button>
                 </div>
            )}
 
