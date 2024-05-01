@@ -6,11 +6,14 @@ import com.revature.models.DTOs.IncomingPokeDTO;
 import com.revature.models.DTOs.OutgoingPokeDTO;
 import com.revature.models.Pokemon;
 import com.revature.models.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class PokemonService {
@@ -71,6 +74,35 @@ public class PokemonService {
 
         return outPokemon;
 
+    }
+
+    //delete pokemon by ID
+    public String releasePokemon(int pokeId, int userId){
+
+        //Make sure the Pokemon exists with an optional
+        //we'll also use this Pokemon object in the delete and the return
+        Optional<Pokemon> optionalPokemon = pokemonDAO.findById(pokeId);
+
+        if(optionalPokemon.isEmpty()){
+            throw new NoSuchElementException("Pokemon not found! Can't delete");
+        }
+
+        //if the pokemon is present:
+            //extract the pokemon from the optional
+            //make sure the pokemon being deleted belongs to the user deleting it
+            //delete the pokemon from the User's List of pokemon
+            //perform the actual delete
+        Pokemon pokemon = optionalPokemon.get();
+
+        if(pokemon.getUser().getUserId() != userId){
+            throw new IllegalArgumentException("You can only delete your own pokemon!");
+        }
+
+        //The pokemon won't fully delete until you remove it from BOTH tables!
+        pokemon.getUser().getPokemon().remove(pokemon);
+        pokemonDAO.deleteById(pokeId);
+
+        return pokemon.getName() + " was released!";
     }
 
 }

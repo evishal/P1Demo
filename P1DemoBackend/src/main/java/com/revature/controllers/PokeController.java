@@ -57,4 +57,24 @@ public class PokeController {
 
     }
 
+    //delete a pokemon by ID
+    @DeleteMapping("/{pokeId}")
+    public ResponseEntity<String> releasePokemon(@PathVariable int pokeId, HttpSession session){
+
+        //Login check
+        if(session.getAttribute("userId") == null){
+            return ResponseEntity.status(401).body("You must be logged in to release Pokemon!");
+        }
+
+        //Get the userId from the session
+        int userId = (int) session.getAttribute("userId");
+
+        //try/catch the service method, either returning a confirmation or error message
+        try {
+            return ResponseEntity.ok(pokemonService.releasePokemon(pokeId, userId));
+        } catch (Exception e){
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+
 }
