@@ -3,10 +3,14 @@ package com.revature.services;
 import com.revature.DAOs.PokemonDAO;
 import com.revature.DAOs.UserDAO;
 import com.revature.models.DTOs.IncomingPokeDTO;
+import com.revature.models.DTOs.OutgoingPokeDTO;
 import com.revature.models.Pokemon;
 import com.revature.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PokemonService {
@@ -43,6 +47,30 @@ public class PokemonService {
 
         //now we can save the pokemon!
         return pokemonDAO.save(p);
+    }
+
+    //get all pokemon
+    public List<OutgoingPokeDTO> getAllPokemon(int userId){
+
+        //get all pokemon from the DB
+        List<Pokemon> allPokemon = pokemonDAO.findByUserUserId(userId);
+
+        //for every pokemon retrieved, we'll create a new OutgoingPokeDTO
+        //and add it to a List to be returned
+        List<OutgoingPokeDTO> outPokemon = new ArrayList<>();
+
+        for(Pokemon p : allPokemon){
+            OutgoingPokeDTO outP = new OutgoingPokeDTO(
+                    p.getPokeId(),
+                    p.getName(),
+                    p.getImage(),
+                    p.getUser().getUserId());
+
+            outPokemon.add(outP);
+        }
+
+        return outPokemon;
+
     }
 
 }

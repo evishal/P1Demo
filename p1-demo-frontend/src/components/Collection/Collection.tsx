@@ -1,0 +1,49 @@
+import { useEffect, useState } from "react"
+import { PokemonInterface } from "../../interfaces/PokemonInterface"
+import axios from "axios"
+import { Pokemon } from "../Pokemon/Pokemon"
+import "./Collection.css"
+
+export const Collection: React.FC = () => {
+
+    //We could have stored a base URL here for cleaner requesting
+    //const baseUrl = "http://localhost:8080/pokemon" 
+
+    //we'll store state that consists of an Array of PokemonInterface objects
+    const [pokemon, setPokemon] = useState<PokemonInterface[]>([]) //start with empty array
+
+    //I want to get all pokemon when the component renders, so we'll use useEffect
+    useEffect(() => {
+        getAllPokemon()
+    }, []) //empty array so this triggers on component load and state change
+
+    //GET request to server to get all pokemon
+    const getAllPokemon = async () => {
+
+        //our GET request (remember to send withCredentials to confirm the user is logged in)
+        const response = await axios.get("http://localhost:8080/pokemon", {withCredentials:true})
+
+        //populate the pokemon state  
+        setPokemon(response.data)
+
+        console.log(response.data)
+
+    }
+
+    return(
+        <div className="collection-container">
+
+            {/* using map(), for every pokemon that belongs to the logged in user... 
+            Display one Pokemon component, and a button to delete it*/}
+            {pokemon.map((poke, index) => 
+                <div>
+                    <Pokemon {...poke}></Pokemon>
+                    <button>hi</button>
+                </div>
+           )}
+
+            {/* If you need to render multiple things in map(), they need to be in a <div> */}
+
+        </div>
+    )
+}

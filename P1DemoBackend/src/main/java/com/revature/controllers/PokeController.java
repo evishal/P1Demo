@@ -41,4 +41,20 @@ public class PokeController {
 
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllPokemon(HttpSession session){
+
+        //Login check
+        if(session.getAttribute("userId") == null){
+            return ResponseEntity.status(401).body("You must be logged in to see your Pokemon!");
+        }
+
+        //Get the userId from the session
+        int userId = (int) session.getAttribute("userId");
+
+        //Why return in many line when one line do trick?
+        return ResponseEntity.ok(pokemonService.getAllPokemon(userId));
+
+    }
+
 }

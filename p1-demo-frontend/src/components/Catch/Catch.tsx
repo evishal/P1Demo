@@ -4,6 +4,7 @@ import "./Catch.css"
 import axios from "axios"
 import { Pokemon } from "../Pokemon/Pokemon"
 import { isButtonElement } from "react-router-dom/dist/dom"
+import { useNavigate } from "react-router-dom"
 
 export const Catch: React.FC = () => {
 
@@ -15,6 +16,9 @@ export const Catch: React.FC = () => {
         name:"",
         image:""
     })
+
+    //we need our useNavigate hook to programmatically switch endpoints (which switches components)
+    const navigate = useNavigate()
 
     //a function that stores the user input (Which we need for our GET request)
     const gatherInput = (input:any) => {
@@ -52,6 +56,12 @@ export const Catch: React.FC = () => {
 
     return(
         <div className="home-page">
+
+            <div className="navbar">
+                <button className="poke-button" onClick={() => {navigate("/collection")}}>See All Pokemon</button>
+                <button className="poke-button" onClick={() => {navigate("/")}}>Back to Login</button>
+            </div>
+
             <div className="home-container">
                 <h3>Search For a Pokemon!</h3>
                 <input type="number" placeholder="Enter Pokemon ID" onChange={gatherInput}/>
