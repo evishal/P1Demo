@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { PokemonInterface } from "../../interfaces/PokemonInterface"
 import "./Catch.css"
 import axios from "axios"
@@ -10,7 +10,7 @@ import { state } from "../../globalData/store"
 export const Catch: React.FC = () => {
 
     //A variable to store user input for finding a pokemon
-    let userInput:number = 0
+    const [userInput, setUserInput] = useState(0)
 
     //we need to store pokemon state to use when rendering the PokemonComponent
     const [pokemon, setPokemon] = useState<PokemonInterface>({
@@ -23,11 +23,13 @@ export const Catch: React.FC = () => {
 
     //a function that stores the user input (Which we need for our GET request)
     const gatherInput = (input:any) => {
-        userInput = input.target.value //set the userInput to what's in the input box
+        setUserInput(input.target.value) //set the userInput to what's in the input box
     }
 
     //a function that sends a GET to PokeAPI based on the user's input
     const getPokemon = async () => {
+
+        console.log(userInput)
 
         //sending our request to pokeAPI using the userInput as the pokemon id to search for
         const response = await axios.get("https://pokeapi.co/api/v2/pokemon/" + userInput)
