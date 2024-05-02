@@ -79,7 +79,7 @@ export const Login: React.FC = () => {
             {state.lastCaughtPokemon.image ? <div>
                 <h3>Last Caught Pokemon:</h3>
                 <img src={state.lastCaughtPokemon.image} alt="POKEMON PIC" />
-            </div>:""}
+            </div>:<h3>You haven't caught a Pokemon recently...</h3>}
 
         </div>
  
