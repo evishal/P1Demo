@@ -33,3 +33,7 @@ export const state:any = {
 }
 
 //Side note: typically all global user data will get populated upon successful login
+//Other side note: There's no built in getter/setter mechanisms, which would be nice for encap.
+
+//another one: For a solution like this, we should probably use local/session storage, for those getters/setters as as data that persists on page reload 
+//but I'm just trying to set the stage for context API here

@@ -3,6 +3,7 @@ import "./Login.css"
 import { UserInterface } from "../../interfaces/UserInterface"
 import { useState } from "react"
 import axios from "axios"
+import { state } from "../../globalData/store"
 
 export const Login: React.FC = () => {
 
@@ -40,8 +41,12 @@ export const Login: React.FC = () => {
         {withCredentials:true})
         .then((response) => {
 
-            //if the login was successful, log the user in and greet them
-            alert("Welcome, " + response.data.username)
+            //if the login was successful, log the user in and store their info in global state
+            state.userSessionData = response.data
+            
+            console.log(state.userSessionData)
+
+            alert("Welcome, " + state.userSessionData.username)
 
             //use our useNavigate hook to switch views to the Catch Pokemon Component
             navigate("/catch")
@@ -68,8 +73,14 @@ export const Login: React.FC = () => {
 
                 <button className="login-button" onClick={login}>Login</button>
                 <button className="login-button" onClick={() => navigate("/register")}>Create Account</button>
-
             </div>
+
+            {/* Conditional Rendering to display last caught poke from global storage */}
+            {state.lastCaughtPokemon.image ? <div>
+                <h3>Last Caught Pokemon:</h3>
+                <img src={state.lastCaughtPokemon.image} alt="POKEMON PIC" />
+            </div>:""}
+
         </div>
  
     )

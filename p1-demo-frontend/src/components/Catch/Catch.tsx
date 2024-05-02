@@ -5,6 +5,7 @@ import axios from "axios"
 import { Pokemon } from "../Pokemon/Pokemon"
 import { isButtonElement } from "react-router-dom/dist/dom"
 import { useNavigate } from "react-router-dom"
+import { state } from "../../globalData/store"
 
 export const Catch: React.FC = () => {
 
@@ -49,8 +50,18 @@ export const Catch: React.FC = () => {
         const response = await axios.post("http://localhost:8080/pokemon", 
         pokemon,
         {withCredentials:true})
+        .then((response) => {
+            alert(state.userSessionData.username + " caught " + pokemon.name) 
+            //{username} caught {pokemonname}!
+            //just cause you can doesn't mean you should...
+            //wouldn't "response.data" be way shorter and simpler to write? yes
+        })
+        .then(() => {
+            state.lastCaughtPokemon = pokemon //sending our local state to global state 
+        })
 
-        alert(response.data) //{username} caught {pokemonname}!
+        //just to show the stored data
+        console.log(state)
 
     }
 
