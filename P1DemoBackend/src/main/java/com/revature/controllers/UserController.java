@@ -68,4 +68,19 @@ public class UserController {
 
     }
 
+    //delete use by ID
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable int userId){
+
+        //TODO: take in HttpSession to do the necessary checks
+
+        try{
+            userService.deleteUser(userId);
+            return ResponseEntity.ok("User was deleted!");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
+
 }

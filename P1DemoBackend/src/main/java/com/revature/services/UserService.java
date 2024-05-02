@@ -69,4 +69,15 @@ public class UserService {
 
     }
 
+    //this method will delete a user by id
+    public void deleteUser(int userId){
+
+        //TODO: validity checks
+            //make sure the deleter is logged in and is a manager
+            //make sure the user to delete actually exists
+            //make sure the deleter is not trying to delete themselves
+
+        userDAO.deleteById(userId);
+    }
+
 }
