@@ -38,6 +38,7 @@ public class UserController {
             return ResponseEntity.status(400).body(e.getMessage());
             //If something goes wrong, send back a 400 BAD REQUEST, plus the error message
         }
+
         //TODO: We'll have checks for DB issues here as well
 
     }

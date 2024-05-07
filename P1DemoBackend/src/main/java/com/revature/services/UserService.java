@@ -4,6 +4,7 @@ import com.revature.DAOs.UserDAO;
 import com.revature.models.DTOs.IncomingUserDTO;
 import com.revature.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -54,8 +55,12 @@ public class UserService {
         //if all checks pass, we can create a new User based off the DTO and send it to the DAO
         User newUser = new User(userDTO.getUsername(), userDTO.getPassword());
 
-        //save the user to the database and return that user at the same time
-        return userDAO.save(newUser);
+        try {
+            //save the user to the database and return that user at the same time
+            return userDAO.save(newUser);
+        } catch (DataIntegrityViolationException e){
+            throw new IllegalArgumentException("Username already exists!");
+        }
 
     }
 
