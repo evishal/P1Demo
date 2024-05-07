@@ -35,7 +35,7 @@ export const Collection: React.FC = () => {
 
         //TODO: throw some error if pokeId is typeof undefined
 
-        const response = await axios.delete("http://localhost:8080/pokemon/" + pokeId, {withCredentials:true})
+        const response = await axios.delete("http://3.90.208.236:8080/pokemon/" + pokeId, {withCredentials:true})
         .then((response) => alert(response.data))
         .then(() => getAllPokemon())
         .catch(

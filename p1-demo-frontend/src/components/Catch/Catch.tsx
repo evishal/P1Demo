@@ -48,7 +48,7 @@ export const Catch: React.FC = () => {
     const catchPokemon = async () => {
 
         //hardcode userId 1 for the pokemon's user
-        const response = await axios.post("http://localhost:8080/pokemon", 
+        const response = await axios.post("http://3.90.208.236:8080/pokemon", 
         pokemon,
         {withCredentials:true})
         .then((response) => {
