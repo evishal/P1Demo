@@ -36,7 +36,7 @@ export const Login: React.FC = () => {
 
         //Send a POST request to the backend for login
         //NOTE: with credentials is what lets us save/send user session info
-        const response = await axios.post("http://localhost:8080/users/login", 
+        const response = await axios.post("http://3.90.208.236:8080/users/login", 
         user,
         {withCredentials:true})
         .then((response) => {

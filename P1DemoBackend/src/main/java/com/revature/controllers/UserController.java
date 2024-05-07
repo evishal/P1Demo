@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("/users")
 //approving our frontend to talk to this controller
 //we're ALSO saying that we're going to allow session data to be passed back and forth
-@CrossOrigin(origins = "http://localhost:3000, http://44.220.158.169", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000, http://44.220.158.169, http://javareact240408.s3-website-us-east-1.amazonaws.com", allowCredentials = "true")
 public class UserController {
 
     //autowire user service

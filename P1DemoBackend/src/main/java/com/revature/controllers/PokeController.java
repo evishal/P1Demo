@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pokemon")
-@CrossOrigin(origins = "http://localhost:3000, http://44.220.158.169", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000, http://44.220.158.169, http://javareact240408.s3-website-us-east-1.amazonaws.com", allowCredentials = "true")
 public class PokeController {
 
     private PokemonService pokemonService;

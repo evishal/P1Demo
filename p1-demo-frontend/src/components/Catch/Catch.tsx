@@ -1,9 +1,8 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { PokemonInterface } from "../../interfaces/PokemonInterface"
 import "./Catch.css"
 import axios from "axios"
 import { Pokemon } from "../Pokemon/Pokemon"
-import { isButtonElement } from "react-router-dom/dist/dom"
 import { useNavigate } from "react-router-dom"
 import { state } from "../../globalData/store"
 

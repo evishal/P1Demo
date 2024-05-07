@@ -34,7 +34,7 @@ export const Register: React.FC = () => {
     const register = async () => {
 
         //TODO: We still need to implement the backend... this request goes nowhere
-        const response = await axios.post("http://localhost:8080/users", user)
+        const response = await axios.post("http://3.90.208.236:8080/users", user)
 
         alert(response.data) //"{user} was created!"
 
