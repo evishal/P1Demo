@@ -7,7 +7,7 @@ import { Catch } from './components/Catch/Catch';
 import { Register } from './components/Login/Register';
 import { Collection } from './components/Collection/Collection';
 
-//If we want a component to render as soon as the app starts...
+//If we want a component to render as soon as the app starts.
 //...then you should leave the path as ""
 function App() {
   return (
