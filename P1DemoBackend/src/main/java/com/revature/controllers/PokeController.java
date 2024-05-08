@@ -26,7 +26,7 @@ public class PokeController {
 
         //If the user is not logged in (if the userId is null), send back a 401
         if(session.getAttribute("userId") == null){
-            return ResponseEntity.status(401).body("Jenkins says:You must be logged in to catch Pokemon!");
+            return ResponseEntity.status(401).body("Jenkins says: You must be logged in to catch Pokemon!");
         }
 
         //Now that we have user info saved (in our HTTP Session), we can attach the stored user Id to the pokeDTO
