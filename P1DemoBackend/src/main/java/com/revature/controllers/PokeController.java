@@ -37,7 +37,7 @@ public class PokeController {
         Pokemon p = pokemonService.addPokemon(pokeDTO);
 
         return ResponseEntity.status(201).body(
-                p.getUser().getUsername() + " caught " + p.getName());
+                p.getUser().getUsername() + ": caught :" + p.getName());
 
     }
 
